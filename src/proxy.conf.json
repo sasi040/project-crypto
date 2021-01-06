@@ -1,0 +1,8 @@
+{
+    "/order": {
+      "target": "https://www.bitbns.com",
+      "secure": true,
+      "changeOrigin" : true
+    }
+    
+  }

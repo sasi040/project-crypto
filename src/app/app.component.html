@@ -1,41 +1,63 @@
 <div class="container">
-  
-<div class="row" *ngIf="xrpINR"> 
+
+  <div class="d-flex justify-content-center m-5" *ngIf="!exchangeUsingXRP">
+    <div class="spinner-border" role="status">
+    </div>
+  </div>
+<div class="row" *ngIf="exchangeUsingXRP"> 
   <span class="col-12 text-primary"><h2> Crypto Compare
   </h2>
 </span>
-  <div *ngIf="xrpEur" class="col-3 m-1">
-    <div class="m-2 text-primary"><h6><u>XRP Euro Standings:</u></h6></div>
+<div  class="col-2">
+  <div class="m-1 text-primary">&nbsp;</div>
+  <div class="m-2">
+    <span >Last sold:</span>
+  </div>
+  <div class="m-2"> 
+    <span>Today High : </span>
+  </div>
+  <div class="m-2">
+    <span>Today Low : </span>
+  </div>
+</div> 
+  <div  class="col-2 m-1">
+    <div class="m-2 text-primary"><h6><u>XRP Euro</u></h6></div>
     <div class="m-2">
-      <span>Last sold price: {{xrpEur.last}}</span>
+      <span>{{xrpEur.last}}</span>
     </div>
     <div class="m-2">
-      <span>Today High price: {{xrpEur.high}}</span>
+      <span>{{xrpEur.high}}</span>
     </div>
     <div class="m-2">
-      <span>Last bid price: {{xrpEur.bid}}</span>
+      <span>{{xrpEur.low}}</span>
     </div>
   </div>  
-  <div *ngIf="xrpINR" class="col-5 m-1">
-    <div class="m-2 text-primary"><h6><u>XRP INR Standings:</u></h6></div>
+  <div  class="col-3 m-1">
+    <div class="m-2 text-primary"><h6><u>XRP INR </u></h6></div>
     <div class="m-2">
-      <span>Last sold price: {{xrpINR.last_traded_price}}</span>
+      <span>{{xrpINR.last_traded_price}}</span>
     </div>
     <div class="m-2">
-      <span>Today High price: {{xrpINR.highest_buy_bid}}</span>
+      <span>{{xrpINR.highest_buy_bid}}</span>
     </div>
     <div class="m-2">
-      <span>Today Low price: {{xrpINR.lowest_sell_bid}}</span>
+      <span>{{xrpINR.lowest_sell_bid}}</span>
     </div>
   </div>  
-  <div *ngIf="euroToInr" class="col-6 text-primary">
+  <div class="text-primary m-1">
     Euro To Inr: {{euroToInr}}
   </div>
-  <hr>
- <span class="col-12 m-2">Direct Exchange Value for 1000 Euros in INR : <span class="text-primary">{{1000 * euroToInr}}</span></span>
- <span class="col-12 m-2">Number of Ripples for 1000 Euors in bitstamp: <span class="text-primary">{{1000 / xrpEur.last}}</span></span>
- <span class="col-12 m-2">Exchange of  1000 Euors to INR via XRP : <span class="text-primary">{{1000 / xrpEur.last * xrpINR.last_traded_price}}</span></span>
+  <span class="text-primary m-1"><u>Converison sample below for 1000 Euros:</u></span>
+ <span class="col-12 m-1">Direct Exchange INR : <span class="text-primary">{{normalEuroToInr | number}}</span></span>
+ <span class="col-12 m-1"># of Ripples for 1000 Euors in bitstamp: <span class="text-primary">{{noOfXRPPer1000 | number}}</span></span>
+ <span class="col-12 m-1">Exchange via XRP : <span class="text-primary">{{exchangeUsingXRP | number}}</span></span>
+ <span class="col-12 m-1">Percentage Diff : <span class="text-primary">{{percentageDiff | number}}%</span></span>
+<hr>
+ <h5 class="text-primary">Courtesy Apis: </h5>
+ <ul type="circle">
+  <li ><a href="https://www.bitstamp.net/api/v2/ticker/xrpeur?callback=jsonp" target="_blank">BitStamp</a></li>
+  <li ><a href="https://www.bitbns.com/order/fetchTickers" target="_blank">BitBns</a></li>
+  <li><a href="https://api.exchangeratesapi.io/latest?base=EUR&symbols=INR" target="_blank">Exchange Rates</a></li>
+</ul>
 </div>
-
 </div>
-<router-outlet></router-outlet>

@@ -1,63 +1,45 @@
 <div class="container">
-
+  <h3 class="text-primary justify-content-center"> Crypto Compare for 1000 Euros Conversion
+  </h3>
   <div class="d-flex justify-content-center m-5" *ngIf="!exchangeUsingXRP">
     <div class="spinner-border" role="status">
     </div>
   </div>
 <div class="row" *ngIf="exchangeUsingXRP"> 
-  <span class="col-12 text-primary"><h2> Crypto Compare
-  </h2>
-</span>
-<div  class="col-2">
-  <div class="m-1 text-primary">&nbsp;</div>
-  <div class="m-2">
-    <span >Last sold:</span>
-  </div>
-  <div class="m-2"> 
-    <span>Today High : </span>
-  </div>
-  <div class="m-2">
-    <span>Today Low : </span>
-  </div>
-</div> 
-  <div  class="col-2 m-1">
-    <div class="m-2 text-primary"><h6><u>XRP Euro</u></h6></div>
-    <div class="m-2">
-      <span>{{xrpEur.last}}</span>
-    </div>
-    <div class="m-2">
-      <span>{{xrpEur.high}}</span>
-    </div>
-    <div class="m-2">
-      <span>{{xrpEur.low}}</span>
-    </div>
-  </div>  
-  <div  class="col-3 m-1">
-    <div class="m-2 text-primary"><h6><u>XRP INR </u></h6></div>
-    <div class="m-2">
-      <span>{{xrpINR.last_traded_price}}</span>
-    </div>
-    <div class="m-2">
-      <span>{{xrpINR.highest_buy_bid}}</span>
-    </div>
-    <div class="m-2">
-      <span>{{xrpINR.lowest_sell_bid}}</span>
-    </div>
-  </div>  
-  <div class="text-primary m-1">
+  <div class="text-primary col-3">
     Euro To Inr: {{euroToInr}}
   </div>
-  <span class="text-primary m-1"><u>Converison sample below for 1000 Euros:</u></span>
- <span class="col-12 m-1">Direct Exchange INR : <span class="text-primary">{{normalEuroToInr | number}}</span></span>
- <span class="col-12 m-1"># of Ripples for 1000 Euors in bitstamp: <span class="text-primary">{{noOfXRPPer1000 | number}}</span></span>
- <span class="col-12 m-1">Exchange via XRP : <span class="text-primary">{{exchangeUsingXRP | number}}</span></span>
- <span class="col-12 m-1">Percentage Diff : <span class="text-primary">{{percentageDiff | number}}%</span></span>
+ <div class="col-3 text-primary">Normal Exchange  : <span class="text-primary">{{normalEuroToInr | number}}</span></div>
+</div>
+<div class="row m-3">
+  <div class="col-sm-4">
+    <app-crypto-card [cardDetail]="xrpCard" [header]="'Ripple'"></app-crypto-card>
+  </div>
+  <div class="col-sm-4">
+    <app-crypto-card [cardDetail]="ltcCard" [header]="'LiteCoin'"></app-crypto-card>
+  </div>
+  <div class="col-sm-4">
+    <app-crypto-card [cardDetail]="btcCard" [header]="'Bitcoin'"></app-crypto-card>
+  </div>
+</div>
+<div class="row m-3">
+  <div class="col-sm-4">
+    <app-crypto-card [cardDetail]="ethCard" [header]="'Ethereum'"></app-crypto-card>
+  </div>
+  <div class="col-sm-4">
+    <app-crypto-card [cardDetail]="xlmCard" [header]="'Stellar XLM'"></app-crypto-card>
+  </div>
+  <div class="col-sm-4">
+    <app-crypto-card [cardDetail]="linkCard" [header]="'Chain LINK'"></app-crypto-card>
+  </div>
+</div>
+
+<div class="m-1">
 <hr>
- <h5 class="text-primary">Courtesy Apis: </h5>
- <ul type="circle">
-  <li ><a href="https://www.bitstamp.net/api/v2/ticker/xrpeur?callback=jsonp" target="_blank">BitStamp</a></li>
-  <li ><a href="https://www.bitbns.com/order/fetchTickers" target="_blank">BitBns</a></li>
+<h5 class="text-primary">Courtesy Apis: </h5>
+<ul type="circle">
+  <li><a href="https://www.bitstamp.net/api/v2/ticker/xrpeur?callback=jsonp" target="_blank">BitStamp</a></li>
+  <li><a href="https://www.bitbns.com/order/fetchTickers" target="_blank">BitBns</a></li>
   <li><a href="https://api.exchangeratesapi.io/latest?base=EUR&symbols=INR" target="_blank">Exchange Rates</a></li>
 </ul>
-</div>
 </div>

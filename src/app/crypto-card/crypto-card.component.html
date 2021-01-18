@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="card-header text-primary">
+        <h5>{{header}}</h5>
+    </div>
+    <div class="d-flex justify-content-center m-5" *ngIf="!cardDetail">
+        <div class="spinner-border" role="status">
+        </div>
+    </div>
+    <div *ngIf="cardDetail">
+        <div class="card-body">
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col" class="text-primary">EURO</th>
+                        <th scope="col" class="text-primary">INR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Last Sold</th>
+                        <td>{{cardDetail.euroLast}}</td>
+                        <td>{{cardDetail.inrLast}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">High</th>
+                        <td>{{cardDetail.euroHigh}}</td>
+                        <td>{{cardDetail.inrHigh}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Low</th>
+                        <td>{{cardDetail.euroLow}}</td>
+                        <td>{{cardDetail.inrLow}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Exchange via Coin : <span
+                                class="text-primary">{{cardDetail.exchangeValue | number}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            Percentage Difference : <span class="text-primary">{{cardDetail.percentageDiff | number}}%</span>
+        </div>
+</div>

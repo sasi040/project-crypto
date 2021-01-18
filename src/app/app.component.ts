@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { XrpEur } from './XrpEur';
+import { BitstampCoin } from './BitstampCoin';
 import { Subject } from 'rxjs';
+import { CardDetails } from './CardDetails';
 // import { bitbnsApi } from '../../node_modules/bitbns';
 
 @Component({
@@ -14,25 +15,66 @@ export class AppComponent implements OnInit{
   constructor(private httpClient: HttpClient) {
   }
 
-  xrpEur: XrpEur;
+  xrpEur: BitstampCoin;
+  ethEur: BitstampCoin;
+  ltcEur: BitstampCoin;
+  btcEur: BitstampCoin;
+  xlmEur: BitstampCoin;
+  linkEur: BitstampCoin;
   xrpINR: any;
+  ethINR: any;
+  ltcINR: any;
+  btcINR: any;
+  xlmINR: any;
+  linkINR: any;
   euroToInr: number;
   xrpEurSubject: Subject<string> = new Subject();
   normalEuroToInr: number;
   noOfXRPPer1000: number;
   exchangeUsingXRP: number;
   percentageDiff: number;
+  xrpCard: CardDetails;
+  btcCard: CardDetails;
+  ltcCard: CardDetails;
+  ethCard: CardDetails;
+  xlmCard: CardDetails;
+  linkCard: CardDetails;
 
   ngOnInit(): void {
-    
-    this.httpClient.get<XrpEur>('https://www.bitstamp.net/api/v2/ticker/xrpeur?callback=jsonp')
+
+    this.httpClient.get<BitstampCoin>('https://www.bitstamp.net/api/v2/ticker/xrpeur?callback=jsonp')
     .subscribe(data => {
       this.xrpEur = data;
     });
+    this.httpClient.get<BitstampCoin>('https://www.bitstamp.net/api/v2/ticker/ltceur?callback=jsonp')
+      .subscribe(data => {
+        this.ltcEur = data;
+      });
+    this.httpClient.get<BitstampCoin>('https://www.bitstamp.net/api/v2/ticker/btceur?callback=jsonp')
+      .subscribe(data => {
+        this.btcEur = data;
+      });
+    this.httpClient.get<BitstampCoin>('https://www.bitstamp.net/api/v2/ticker/etheur?callback=jsonp')
+      .subscribe(data => {
+        this.ethEur = data;
+      });
+    this.httpClient.get<BitstampCoin>('https://www.bitstamp.net/api/v2/ticker/xlmeur?callback=jsonp')
+      .subscribe(data => {
+        this.xlmEur = data;
+      });
+    this.httpClient.get<BitstampCoin>('https://www.bitstamp.net/api/v2/ticker/linkeur?callback=jsonp')
+      .subscribe(data => {
+        this.linkEur = data;
+      });
 
-     this.httpClient.get('/order/fetchTickers')
+    this.httpClient.get('/order/fetchTickers')
       .subscribe(data => {
        this.xrpINR = data['XRP/INR']['info'];
+       this.ltcINR = data['LTC/INR']['info'];
+       this.btcINR = data['BTC/INR']['info'];
+       this.ethINR = data['ETH/INR']['info'];
+       this.xlmINR = data['XLM/INR']['info'];
+       this.linkINR = data['LINK/INR']['info'];
        this.xrpEurSubject.next('ready');
     });
 
@@ -43,11 +85,35 @@ export class AppComponent implements OnInit{
 
     this.xrpEurSubject.subscribe(val => {
       this.normalEuroToInr = this.euroToInr * 1000;
-      this.noOfXRPPer1000 = 1000 /this.xrpEur.last;
+      this.noOfXRPPer1000  = 1000 / this.xrpEur.last;
       this.exchangeUsingXRP = this.noOfXRPPer1000 * this.xrpINR.last_traded_price;
-      this.percentageDiff = (this.exchangeUsingXRP - this.normalEuroToInr)/this.exchangeUsingXRP*100;
+      this.percentageDiff = (this.exchangeUsingXRP - this.normalEuroToInr) / this.normalEuroToInr * 100;
+      this.xrpCard = this.getCardDetails(this.xrpEur, this.xrpINR);
+      this.btcCard = this.getCardDetails(this.btcEur, this.btcINR);
+      this.ltcCard = this.getCardDetails(this.ltcEur, this.ltcINR);
+      this.ethCard = this.getCardDetails(this.ethEur, this.ethINR);
+      this.xlmCard = this.getCardDetails(this.xlmEur, this.xlmINR);
+      this.linkCard = this.getCardDetails(this.linkEur, this.linkINR);
     });
 
+  }
+
+  getCardDetails(bitStampCoin: BitstampCoin, bitbnsCoin: any): CardDetails {
+    const noOfCoins = 1000 / bitStampCoin.last;
+    const exchangeValue = noOfCoins * bitbnsCoin.last_traded_price;
+    const percentageDiff = (exchangeValue - this.normalEuroToInr) / this.normalEuroToInr * 100;
+    let cardDetail: CardDetails;
+    cardDetail = {
+      euroHigh: bitStampCoin.high,
+      euroLast: bitStampCoin.last,
+      euroLow: bitStampCoin.low,
+      inrHigh: bitbnsCoin.highest_buy_bid,
+      inrLow: bitbnsCoin.lowest_sell_bid,
+      inrLast: bitbnsCoin.last_traded_price,
+      exchangeValue,
+      percentageDiff
+    };
+    return cardDetail;
   }
   title = 'Project-Crypto';
 }

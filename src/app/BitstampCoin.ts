@@ -1,4 +1,4 @@
-export interface XrpEur {
+export interface BitstampCoin {
 
     high: number;
     last: number;

@@ -30,6 +30,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: 
-            chsasidhar/project-crypto:latest
-            chsasidhar/project-crypto:1.0.1
+          tags: chsasidhar/project-crypto:latest

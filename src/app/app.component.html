@@ -1,11 +1,11 @@
 <div class="container">
   <h3 class="text-primary justify-content-center"> Crypto Compare for 1000 Euros Conversion
   </h3>
-  <div class="d-flex justify-content-center m-5" *ngIf="!exchangeUsingXRP">
+  <div class="d-flex justify-content-center m-5" *ngIf="!normalEuroToInr">
     <div class="spinner-border" role="status">
     </div>
   </div>
-<div class="row" *ngIf="exchangeUsingXRP"> 
+<div class="row" *ngIf="normalEuroToInr"> 
   <div class="text-primary col-3">
     Euro To Inr: {{euroToInr}}
   </div>

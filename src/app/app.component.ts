@@ -85,21 +85,19 @@ export class AppComponent implements OnInit{
 
     this.xrpEurSubject.subscribe(val => {
       this.normalEuroToInr = this.euroToInr * 1000;
-      this.noOfXRPPer1000  = 1000 / this.xrpEur.last;
-      this.exchangeUsingXRP = this.noOfXRPPer1000 * this.xrpINR.last_traded_price;
-      this.percentageDiff = (this.exchangeUsingXRP - this.normalEuroToInr) / this.normalEuroToInr * 100;
-      this.xrpCard = this.getCardDetails(this.xrpEur, this.xrpINR);
-      this.btcCard = this.getCardDetails(this.btcEur, this.btcINR);
-      this.ltcCard = this.getCardDetails(this.ltcEur, this.ltcINR);
-      this.ethCard = this.getCardDetails(this.ethEur, this.ethINR);
-      this.xlmCard = this.getCardDetails(this.xlmEur, this.xlmINR);
-      this.linkCard = this.getCardDetails(this.linkEur, this.linkINR);
+      this.xrpCard = this.getCardDetails(this.xrpEur, this.xrpINR, 0.02);
+      this.btcCard = this.getCardDetails(this.btcEur, this.btcINR,0.0005);
+      this.ltcCard = this.getCardDetails(this.ltcEur, this.ltcINR,0.001);
+      this.ethCard = this.getCardDetails(this.ethEur, this.ethINR,0.04);
+      this.xlmCard = this.getCardDetails(this.xlmEur, this.xlmINR,0.005);
+      this.linkCard = this.getCardDetails(this.linkEur, this.linkINR,0.25);
     });
 
   }
 
-  getCardDetails(bitStampCoin: BitstampCoin, bitbnsCoin: any): CardDetails {
-    const noOfCoins = 1000 / bitStampCoin.last;
+  getCardDetails(bitStampCoin: BitstampCoin, bitbnsCoin: any, transferFee: number): CardDetails {
+    
+    const noOfCoins = (995 / bitStampCoin.last) - transferFee;
     const exchangeValue = noOfCoins * bitbnsCoin.last_traded_price;
     const percentageDiff = (exchangeValue - this.normalEuroToInr) / this.normalEuroToInr * 100;
     let cardDetail: CardDetails;

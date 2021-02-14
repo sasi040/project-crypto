@@ -8,11 +8,26 @@ on:
 
 jobs:
 
-  build:
-
+  push_to_registry:
+    name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag chsasidhar/project-crypto:latest
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        
+      - name: Setup docker buildx 
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Docker login
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.DOC_USR }}
+          password: ${{ secrets.DOC_PWD }}
+         
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: chsasidhar/project-crypto:latest

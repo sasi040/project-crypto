@@ -97,8 +97,8 @@ export class AppComponent implements OnInit{
 
   getCardDetails(bitStampCoin: BitstampCoin, bitbnsCoin: any, transferFee: number): CardDetails {
     
-    const noOfCoins = (995 / bitStampCoin.last) - transferFee;
-    const exchangeValue = noOfCoins * bitbnsCoin.last_traded_price;
+    const noOfCoins = (997.5 / bitStampCoin.last) - transferFee;
+    const exchangeValue = noOfCoins * bitbnsCoin.highest_buy_bid;
     const percentageDiff = (exchangeValue - this.normalEuroToInr) / this.normalEuroToInr * 100;
     let cardDetail: CardDetails;
     cardDetail = {
